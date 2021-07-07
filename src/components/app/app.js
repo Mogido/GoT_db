@@ -1,34 +1,72 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Col, Row, Container} from 'reactstrap';
+import styled from 'styled-components';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ItemList from '../itemList';
 import CharDetails from '../charDetails';
 
+const ToggleButton = styled.button`
+margin: 20px auto;
+background-color: darkblue;
+color: #fff;
+border: none;
+display: block;
+box-sizing: border-box;
+padding: 10px 20px;
+font-weight: bold;
+`
 
-const App = () => {
-    return (
-        <> 
-            <Container>
-                <Header />
-            </Container>
-            <Container>
-                <Row>
-                    <Col lg={{size: 5, offset: 0}}>
-                        <RandomChar/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md='6'>
-                        <ItemList />
-                    </Col>
-                    <Col md='6'>
-                        <CharDetails />
-                    </Col>
-                </Row>
-            </Container>
-        </>
-    );
+
+export default class App extends Component  {
+
+    constructor(props) {
+        super();
+        this.onToggleRandomCharacter();
+    }
+
+    state = {
+        showRandomBlock: true
+    }
+
+    onToggleRandomCharacter = () => {
+        this.setState({
+            showRandomBlock: !this.state.showRandomBlock
+        })
+    }
+
+
+    render () {
+
+        const { showRandomBlock } = this.state;
+
+        const RandomBlock = showRandomBlock ? <RandomChar/> : null;
+
+        return (
+            <> 
+                <Container>
+                    <Header />
+                </Container>
+                <Container>
+                    <Row>
+                        <Col lg={{size: 5, offset: 0}}>
+                            {RandomBlock}
+                            <ToggleButton onClick={this.onToggleRandomCharacter} type='button'>Toggle random character</ToggleButton>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md='6'>
+                            <ItemList />
+                        </Col>
+                        <Col md='6'>
+                            <CharDetails />
+                        </Col>
+                    </Row>
+                </Container>
+            </>
+        )
+    }
+        
+
 };
 
-export default App;
