@@ -3,8 +3,8 @@ import {Col, Row, Container} from 'reactstrap';
 import styled from 'styled-components';
 import Header from '../header';
 import RandomChar from '../randomChar';
-import ItemList from '../itemList';
-import CharDetails from '../charDetails';
+import CharacterPage from '../characterPage/characterPage';
+import ErrorMessage from '../errorMessage';
 
 const ToggleButton = styled.button`
 margin: 20px auto;
@@ -26,7 +26,15 @@ export default class App extends Component  {
     }
 
     state = {
-        showRandomBlock: true
+        showRandomBlock: true,
+        error: false
+    }
+
+    componentDidCatch() {
+        console.log('error');
+        this.setState({
+            error: true
+        })
     }
 
     onToggleRandomCharacter = () => {
@@ -35,12 +43,18 @@ export default class App extends Component  {
         })
     }
 
+    
 
     render () {
 
-        const { showRandomBlock } = this.state;
+        const { showRandomBlock, error } = this.state;
 
         const RandomBlock = showRandomBlock ? <RandomChar/> : null;
+
+
+        if (error) {
+            return <ErrorMessage/>
+        }
 
         return (
             <> 
@@ -54,14 +68,7 @@ export default class App extends Component  {
                             <ToggleButton onClick={this.onToggleRandomCharacter} type='button'>Toggle random character</ToggleButton>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col md='6'>
-                            <ItemList />
-                        </Col>
-                        <Col md='6'>
-                            <CharDetails />
-                        </Col>
-                    </Row>
+                    <CharacterPage/>
                 </Container>
             </>
         )
