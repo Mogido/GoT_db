@@ -3,8 +3,11 @@ import {Col, Row, Container} from 'reactstrap';
 import styled from 'styled-components';
 import Header from '../header';
 import RandomChar from '../randomChar';
-import CharacterPage from '../characterPage/characterPage';
+import CharacterPage from '../pages/characterPage/characterPage';
 import ErrorMessage from '../errorMessage';
+import GotService from '../../services/gotService';
+import BookPage from '../pages/bookPage';
+import HousePage from '../pages/housePage';
 
 const ToggleButton = styled.button`
 margin: 20px auto;
@@ -20,7 +23,9 @@ font-weight: bold;
 
 export default class App extends Component  {
 
-    constructor(props) {
+    gotService = new GotService();
+
+    constructor() {
         super();
         this.onToggleRandomCharacter();
     }
@@ -69,6 +74,8 @@ export default class App extends Component  {
                         </Col>
                     </Row>
                     <CharacterPage/>
+                    <BookPage/>
+                    <HousePage/>
                 </Container>
             </>
         )
