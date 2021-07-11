@@ -31,7 +31,7 @@ class BookPage extends Component {
 		return (
 			<ItemList
 				onItemSelected={(itemId) => {
-					this.props.history.push(itemId)
+					this.props.history.push(`books/${itemId}`)
 				}}
 				getData={this.gotService.getAllBooks}
 				renderItem={({name}) => name}/>
